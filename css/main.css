@@ -10,3 +10,7 @@ form {
 .open {
     display: block;
 }
+.justifyContent {
+    display: flex;
+    justify-content: space-between;
+}

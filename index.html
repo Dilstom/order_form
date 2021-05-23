@@ -1,168 +1,204 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pizza Order Form</title>
 
     <!-- Bootstrap 4 -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </head>
-    <link rel="stylesheet" href="css/main.css">
+<link rel="stylesheet" href="css/main.css">
 </head>
+
 <body>
-   
-<div class="container">
-    <!-- DELIVERY LOCATION -->
-	<div class="row">
-		 <form class="form-horizontal">
-            <fieldset>
-                <!-- Address form -->
-         
-                <h2>Address</h2>
-         
-                <!-- full-name input-->
-                <div class="control-group">
-                    <label class="control-label">Full Name</label>
-                    <div class="controls">
-                        <input id="fullName" name="fullName" type="text" placeholder="Full Name"
-                        class="input-xlarge">
-                        <p class="help-block"></p>
-                    </div>
-                </div>
 
-                <!-- address type -->
-                <div class="control-group">
-                    <label class="control-label">Address Type</label>
-                    <div class="controls">
-                        <div class="dropdown">
-                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButtonAddressType" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Choose Type
-                            </button>
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                              <a class="dropdown-item" href="#">House</a>
-                              <a class="dropdown-item" href="#">Apartment</a>
-                              <a class="dropdown-item" href="#">Business</a>
-                              <a class="dropdown-item" href="#">Campus</a>
-                              <a class="dropdown-item" href="#">Hotel</a>
-                              <a class="dropdown-item" href="#">Dorm</a>
-                              <a class="dropdown-item" href="#">Other</a>
+    <div class="container">
+        <!-- DELIVERY LOCATION -->
+        <div class="row">
+            <form class="form-horizontal">
+                <fieldset>
+                    <!-- Address form -->
+
+                    <h2>Address</h2>
+
+                    <!-- full-name input-->
+                    <div class="control-group">
+                        <label class="control-label">Full Name</label>
+                        <div class="controls">
+                            <input id="fullName" name="fullName" type="text" placeholder="Full Name"
+                                class="input-xlarge">
+                            <p class="help-block"></p>
+                        </div>
+                    </div>
+
+                    <!-- address type -->
+                    <div class="control-group">
+                        <label class="control-label">Address Type</label>
+                        <div class="controls addressType">
+                            <div class="dropdown">
+                                <button class="btn btn-secondary dropdown-toggle" type="button"
+                                    id="dropdownMenuButtonAddressType" data-toggle="dropdown" aria-haspopup="true"
+                                    aria-expanded="false">
+                                    Choose Type
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <a class="dropdown-item" href="#">House</a>
+                                    <a class="dropdown-item" href="#">Apartment</a>
+                                    <a class="dropdown-item" href="#">Business</a>
+                                    <a class="dropdown-item" href="#">Campus</a>
+                                    <a class="dropdown-item" href="#">Hotel</a>
+                                    <a class="dropdown-item" href="#">Dorm</a>
+                                    <a class="dropdown-item" href="#">Other</a>
+                                </div>
                             </div>
-                          </div>
-                        <p class="help-block"></p>
+                            <p class="help-block"></p>
+                        </div>
+                        <div class="controls hidden">
+                            <input id="addressType" name="addressType" type="text" placeholder="Address Type"
+                                class="input-xlarge">
+                            <p class="help-block">Please, specify Address Type</p>
+                        </div>
                     </div>
-                    <div class="controls hidden">
-                        <input id="addressType" name="addressType" type="text" placeholder="Address Type"
-                        class="input-xlarge">
-                        <p class="help-block">Please, specify Address Type</p>
-                    </div>
-                </div>
 
-                <!-- address-line1 input-->
-                <div class="control-group">
-                    <label class="control-label">Address Line 1</label>
-                    <div class="controls">
-                        <input id="address-line1" name="address-line1" type="text" placeholder="address line 1"
-                        class="input-xlarge">
-                        <p class="help-block">Street address</p>
+                    <!-- address-line1 input-->
+                    <div class="control-group">
+                        <label class="control-label">Address Line 1</label>
+                        <div class="controls">
+                            <input id="address-line1" name="address-line1" type="text" placeholder="address line 1"
+                                class="input-xlarge">
+                            <p class="help-block">Street address</p>
+                        </div>
                     </div>
-                </div>
-                <!-- address-line2 input-->
-                <div class="control-group">
-                    <label class="control-label">Address Line 2 - Optional</label>
-                    <div class="controls">
-                        <input id="address-line2" name="address-line2" type="text" placeholder="address line 2"
-                        class="input-xlarge">
-                        <p class="help-block">Apartment, suite , unit, building, floor, etc.</p>
+                    <!-- address-line2 input-->
+                    <div class="control-group">
+                        <label class="control-label">Address Line 2 - Optional</label>
+                        <div class="controls">
+                            <input id="address-line2" name="address-line2" type="text" placeholder="address line 2"
+                                class="input-xlarge">
+                            <p class="help-block">Apartment, suite , unit, building, floor, etc.</p>
+                        </div>
                     </div>
-                </div>
-                <!-- city input-->
-                <div class="control-group">
-                    <label class="control-label">City / Town</label>
-                    <div class="controls">
-                        <input id="city" name="city" type="text" placeholder="city" class="input-xlarge">
-                        <p class="help-block"></p>
+                    <!-- city input-->
+                    <div class="control-group">
+                        <label class="control-label">City / Town</label>
+                        <div class="controls">
+                            <input id="city" name="city" type="text" placeholder="city" class="input-xlarge">
+                            <p class="help-block"></p>
+                        </div>
                     </div>
-                </div>
-                <!-- region input-->
-                <div class="control-group">
-                    <label class="control-label">State</label>
-                    <div class="controls">
-                        <input id="state" name="state" type="text" placeholder="state"
-                        class="input-xlarge">
-                        <p class="help-block"></p>
+                    <!-- region input-->
+                    <div class="control-group">
+                        <label class="control-label">State</label>
+                        <div class="controls">
+                            <input id="state" name="state" type="text" placeholder="state" class="input-xlarge">
+                            <p class="help-block"></p>
+                        </div>
                     </div>
-                </div>
-                <!-- postal-code input-->
-                <div class="control-group">
-                    <label class="control-label">Zip / Postal Code</label>
-                    <div class="controls">
-                        <input id="zip" name="zip" type="text" placeholder="zip code"
-                        class="input-xlarge">
-                        <p class="help-block"></p>
+                    <!-- postal-code input-->
+                    <div class="control-group">
+                        <label class="control-label">Zip / Postal Code</label>
+                        <div class="controls">
+                            <input id="zip" name="zip" type="text" placeholder="zip code" class="input-xlarge">
+                            <p class="help-block"></p>
+                        </div>
                     </div>
-                </div>
-                <!-- phone number input-->
-                <div class="control-group">
-                    <label class="control-label">Phone Number</label>
-                    <div class="controls">
-                        <input id="phone" name="phone" type="tel" placeholder="Phone Number"
-                        class="input-xlarge">
-                        <p class="help-block"></p>
+                    <!-- phone number input-->
+                    <div class="control-group">
+                        <label class="control-label">Phone Number</label>
+                        <div class="controls">
+                            <input id="phone" name="phone" type="tel" placeholder="Phone Number" class="input-xlarge">
+                            <p class="help-block"></p>
+                        </div>
                     </div>
-                </div>
-                <!-- email input-->
-                <div class="control-group">
-                    <label class="control-label">Email</label>
-                    <div class="controls">
-                        <input id="email" name="email" type="email" placeholder="email"
-                        class="input-xlarge">
-                        <p class="help-block"></p>
+                    <!-- email input-->
+                    <div class="control-group">
+                        <label class="control-label">Email</label>
+                        <div class="controls">
+                            <input id="email" name="email" type="email" placeholder="email" class="input-xlarge">
+                            <p class="help-block"></p>
+                        </div>
                     </div>
-                </div>
-            </fieldset>
-        </form>
-    </div>
-    
-    <!-- BUILD ORDER -->
-    <h2>Build Your Order</h2>
-    <div class="btn-group btn-group-toggle radioBtn" data-toggle="buttons">
-        <label class="btn btn-secondary active">
-          <input type="radio" name="options" id="option1" checked> Hand Tossed 
-        </label>
-        <label class="btn btn-secondary">
-          <input type="radio" name="options" id="option2"> Thin Crust
-        </label>
-        <label class="btn btn-secondary">
-          <input type="radio" name="options" id="option3"> New York Style
-        </label>
-        <label class="btn btn-secondary">
-          <input type="radio" name="options" id="option4"> Gluten Free
-        </label>
-      </div>
+                </fieldset>
+            </form>
+        </div>
 
-      <h3>Select Size</h3>
-<div id="selectSizeDiv"></div>
+        <!-- BUILD ORDER -->
+        <div class='justifyContent'>
 
-<script src="js/index.js"></script>
-<script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js'></script>
+            <h2>Build Your Order</h2>
+            <h4>Total: $<span id="priceTotal"></span></h4>
+        </div>
+        <div class="dougnOption">
+            <h4>Select dough option:</h4>
+            <div class="btn-group btn-group-toggle radioBtn" data-toggle="buttons">
+                <label class="btn btn-secondary active">
+                    <input type="radio" name="options" id="option1" checked> Hand Tossed
+                </label>
+                <label class="btn btn-secondary">
+                    <input type="radio" name="options" id="option2"> Thin Crust
+                </label>
+                <label class="btn btn-secondary">
+                    <input type="radio" name="options" id="option3"> New York Style
+                </label>
+                <label class="btn btn-secondary">
+                    <input type="radio" name="options" id="option4"> Gluten Free
+                </label>
+            </div>
+            <p id="selectedDough"></p>
+        </div>
 
-<script type="text/javascript">
-jQuery(document).ready(function($){ 
-						   
-    $(".dropdown-menu a").click(function(){
+        <div class="sizeOption">
+            <h4>Select Size</h3>
+                <div id="selectSizeDiv" class="dropdown">Choose a Dough First</div>
+                <p id="selectedDoughSize"></p>
+        </div>
 
-    $(".btn:first-child").text($(this).text());
-    $(".btn:first-child").val($(this).text());
+        <div class="cheeseOption hidden">
+            <h4>Select Cheese</h3>
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButtonForCheese"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Choose Cheese
+                    </button>
+                    <div class="cheeseDropdown dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" href="#" id="lightCheese">Light: no charge</a>
+                        <a class="dropdown-item" href="#" id="defaultCheese">Normal (default): no charge</a>
+                        <a class="dropdown-item" href="#" id="extraCheese">Extra: +$2.99</a>
+                        <a class="dropdown-item" href="#" id="doubleCheese">Double: +$3.99</a>
+                    </div>
+                </div>
+                <p id="selectedCheese">Selected Cheese - Normal (default): no charge</p>
+        </div>
 
-    });
-	
-});
-</script>
+
+        <script src="js/index.js"></script>
+        <script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js'></script>
+
+        <script type="text/javascript">
+            jQuery(document).ready(function ($) {
+
+                $(".addressType .dropdown-menu a").click(function () {
+
+                    $(".addressType .btn:first-child").text($(this).text());
+                    $(".addressType  .btn:first-child").val($(this).text());
+
+                });
+                // $("#selectSizeDiv .dropdown-menu a").click(function(){
+
+                // $("#selectSizeDiv .btn:first-child").text($(this).text());
+                // $("#selectSizeDiv  .btn:first-child").val($(this).text());
+
+                // });
+
+            });
+        </script>
 
 
 </body>
+
 </html>
