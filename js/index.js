@@ -130,8 +130,14 @@ let option4 = $("option4");
 let selectedDough = $("selectedDough");
 let selectedDoughSize = $("selectedDoughSize");
 let selectedCheese = $("selectedCheese");
+let selectedSauce = $("selectedSauce");
 let cheeseOption = document.querySelector(".cheeseOption");
+let sauceOption = document.querySelector(".sauceOption");
 let cheeseDropdown = document.querySelector('.cheeseDropdown');
+let sauceDropdown = document.querySelector('.sauceDropdown');
+let toppingOption = document.querySelector('.toppingOption');
+
+let pSelectedToppings = $('selectedToppings');
 
 // // CREATE DROPDOWN MENU FOR SELECTED SIZE
 // // BUTTON
@@ -165,7 +171,7 @@ console.log("object: ", pizzaSize);
 
 // SET PRICE
 let total = 0;
-priceTotal.innerText = total;
+// priceTotal.innerText = total;
 
 
 for (let i = 0; i < divRadioBtn.length; i++) {
@@ -177,9 +183,15 @@ for (let i = 0; i < divRadioBtn.length; i++) {
         // CLEAR SELECT SIZE IF A NEW DOUGN OPTION CHOSEN
         selectedDoughSize.innerText = "";
 
-        // HIDE SELECT CHEESE IF A NEW DOUGH OPTION CHOSE 
+        // HIDE "SELECT CHEESE", "SELECTSAUCE", "TOPPINGS" IF A NEW DOUGH OPTION CHOSE 
         if(!cheeseOption.classList.contains("hidden")) {
             cheeseOption.classList.add('hidden')
+        }
+        if(!sauceOption.classList.contains("hidden")) {
+            sauceOption.classList.add('hidden')
+        }
+        if(!toppingOption.classList.contains("hidden")) {
+            toppingOption.classList.add('hidden')
         }
 
     //   CLEAR SELECTED SIZE DIV BEFORE EACH SELECTED OPTION
@@ -252,19 +264,22 @@ function removeAllChildNodes(parent) {
   }
 }
 
-
-
 function getSelectedSize(selSize) {
   console.log("selected size in function: ", selSize);
-  flag = true;
+//   flag = true;
+//   CLEAR SELECTED CHOICES BELOW IF USER CHANGES DOUGH SIZE 
   selectedDoughSize.innerText = "Selected size: " + selSize;
-  console.log("index: ", selSize.indexOf("$"));
+  selectedSauce.innerHTML ='Selected Sauce: Regular Tomato: no charge';
+//   console.log("index: ", selSize.indexOf("$"));
   let price = selSize.slice(selSize.indexOf("$") + 1);
 //   keepingCurrentSizePrice(price);
   console.log("price: ", price);
   total += Number(price);
+  console.log("total in size: ", total);
   priceTotal.innerText = total;
   selectCheese();
+  selectSauce();
+  selectTopping();
 }
 
 // function keepingCurrentSizePrice(truePrice) {
@@ -273,23 +288,106 @@ function getSelectedSize(selSize) {
 
 function selectCheese() {
     cheeseOption.classList.remove("hidden");
+    selectedCheese.innerHTML ='Selected Cheese: Normal (default): no charge';
+    
     cheeseDropdown.addEventListener('click', e => {
+        selectedSauce.innerHTML ='Selected Sauce: Regular Tomato: no charge';
         e.preventDefault();
         console.log('e target: ', e.target.id);
         if(e.target.id === 'extraCheese') calculatePrice(2.99);
         else if(e.target.id === 'doubleCheese') calculatePrice(3.99);
         else calculatePrice(0);
-        priceTotal.innerText = total; 
         selectedCheese.innerHTML ='Selected Cheese: ' +  e.target.innerHTML;      
   })
 }
 
+function selectSauce() {
+    sauceOption.classList.remove("hidden");
+    selectedSauce.innerHTML ='Selected Sauce: Regular Tomato: no charge';
+    sauceDropdown.addEventListener('click', e => {
+        e.preventDefault();        
+        console.log('e target: ', e.target.id);
+        if(e.target.id === 'heartyTomato') calculateNewPrice(0.99);
+        else if(e.target.id === 'bbqSauce') calculateNewPrice(1.99);
+        else calculateNewPrice(0);
+        selectedSauce.innerHTML ='Selected Sauce: ' +  e.target.innerHTML;      
+  })
+}
+
+// 'PERSIST' PREVIOUS PRICE AFTER SIZE TO CALC. CHEESE
+console.log('total: ', total)
+let priceAfterCheeseSelection = null;
 function calculatePrice(num) {
-    let currPrice =  total;
+    let currPrice = total;
     currPrice += Number(num);
+
+    console.log('currPrice in calc: ', currPrice)
     currPrice = currPrice.toFixed(2);
-    console.log('curr Price: ', currPrice);
-    console.log('priceTotal: ', priceTotal);
+    // console.log('curr Price: ', currPrice);
+    // console.log('priceTotal: ', priceTotal);
     priceTotal.innerText = `${currPrice}`;
     console.log('priceTotal after: ', priceTotal);
+    priceAfterCheeseSelection = currPrice;
+    return currPrice;
+ }
+
+//  'PERSIST' PRICE AFTER CHEESE TO CALC. SAUCE
+ let priceAfterSauceSelection = null;
+function calculateNewPrice(num) {
+    console.log('total in new price: ', total)
+    console.log('priceAfterCheeseSekection in new price: ', priceAfterCheeseSelection)
+    // IF USER SELECTS SAUCE BEFORE CHEESE
+    if(priceAfterCheeseSelection === null) {
+        priceAfterCheeseSelection = total;
+    }
+    let currPrice = Number(priceAfterCheeseSelection);
+    console.log('newPrice: ', currPrice);
+    currPrice += Number(num);
+    console.log('currPrice in calc: ', currPrice)
+    currPrice = currPrice.toFixed(2);
+    // console.log('curr Price: ', currPrice);
+    // console.log('priceTotal: ', priceTotal);
+    priceTotal.innerText = `${currPrice}`;
+    console.log('priceTotal after: ', priceTotal);
+    priceAfterSauceSelection = currPrice;
+    return currPrice;
+ }
+
+
+function selectTopping() {
+    toppingOption.classList.remove("hidden");
+    let checkboxes = document.querySelectorAll('.toppingOption input[type=checkbox]').forEach(checkbox => checkbox.addEventListener('click', e=> toppingCheckboxes(e)));
+}
+
+let selections = [];
+// let selection = {};
+function toppingCheckboxes(e) {
+    console.log('e.target.checked: ', e.target.checked);
+    console.log('e.target.name: ', e.target.name);
+    console.log('e.target.value: ', e.target.value);
+    if(e.target.checked) {
+        selections.push(e.target.id);
+    }else{
+        let i = selections.indexOf(e.target.id);
+        selections.splice(i, 1);
+    }
+    console.log('selections; ', selections);
+    pSelectedToppings.innerHTML =  selections;
+    let sum = 0.99 * selections.length;
+    calculatePriceAfterTopping(sum)
+}
+
+let priceAfterToppingSelection = null;
+function calculatePriceAfterTopping(num) {
+    let currPrice = total;
+    currPrice += Number(num);
+
+    console.log('currPrice in calc: ', currPrice)
+    currPrice = currPrice.toFixed(2);
+    // console.log('curr Price: ', currPrice);
+    // console.log('priceTotal: ', priceTotal);
+    priceTotal.innerText = `${currPrice}`;
+    console.log('priceTotal after: ', priceTotal);
+    priceAfterToppingSelection = currPrice;
+    return currPrice;
  }

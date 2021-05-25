@@ -228,104 +228,99 @@
           <p id="selectedDoughSize"></p>
         </div>
     
-        <div class="hiddenDiv hidden">
-            <div class="cheeseOption">
-                <h4>Select Cheese</h4>
-                <div class="dropdown">
-                  <button
-                    class="btn btn-secondary dropdown-toggle"
-                    type="button"
-                    id="dropdownMenuButtonForCheese"
-                    data-toggle="dropdown"
-                    aria-haspopup="true"
-                    aria-expanded="false"
-                  >
-                    Choose Cheese
-                  </button>
-                  <div
-                    class="cheeseDropdown dropdown-menu"
-                    aria-labelledby="dropdownMenuButtonForCheese"
-                  >
-                    <a class="dropdown-item" href="#" id="lightCheese"
-                      >Light: no charge</a
-                    >
-                    <a class="dropdown-item" href="#" id="defaultCheese"
-                      >Normal (default): no charge</a
-                    >
-                    <a class="dropdown-item" href="#" id="extraCheese">Extra: +$2.99</a>
-                    <a class="dropdown-item" href="#" id="doubleCheese">Double: +$3.99</a>
-                  </div>
-                </div>
-                <p id="selectedCheese">Selected Cheese - Normal (default): no charge</p>
-              </div>
-          
-              <div class="sauceOption">
-                <h4>Select Sauce</h4>
-                <div class="dropdown">
-                  <button
-                    class="btn btn-secondary dropdown-toggle"
-                    type="button"
-                    id="dropdownMenuButtonForSaurce"
-                    data-toggle="dropdown"
-                    aria-haspopup="true"
-                    aria-expanded="false"
-                  >
-                    Choose Sauce
-                  </button>
-                  <div
-                    class="sauceDropdown dropdown-menu"
-                    aria-labelledby="dropdownMenuButtonForSaurce"
-                  >
-                    <a class="dropdown-item" href="#" id="regularTomato"
-                      >Regular Tomato: no charge</a
-                    >
-                    <a class="dropdown-item" href="#" id="heartyTomato"
-                      >Hearty Tomato: +$.99</a
-                    >
-                    <a class="dropdown-item" href="#" id="bbqSauce">BBQ Sauce: +$1.99</a>
-                  </div>
-                </div>
-                <p id="selectedSauce">Selected Sauce - Regular Tomato: no charge</p>
-              </div>
-          
-              <div class="toppingOption">
-                <h4>Add Toppings - Each $ .99</h4>
-                <div class="form-check">
-                  <label class="form-check-label">
-                    <input type="checkbox" class="form-check-input" value="Pepperoni" id="pepperoni" />Pepperoni
-                  </label>
-                </div>
-                <div class="form-check">
-                  <label class="form-check-label">
-                    <input type="checkbox" class="form-check-input" value="" id="sausage"/>Sausage
-                  </label>
-                </div>
-                <div class="form-check">
-                  <label class="form-check-label">
-                    <input type="checkbox" class="form-check-input" value="" id="ham"/>Ham
-                  </label>
-                </div>
-                <div class="form-check">
-                  <label class="form-check-label">
-                    <input type="checkbox" class="form-check-input" value="" id="bacon"/>Bacon
-                  </label>
-                </div>
-                <div class="form-check">
-                  <label class="form-check-label">
-                    <input type="checkbox" class="form-check-input" value="" id="salami"/>Salami
-                  </label>
-                </div>
-                <div class="form-check">
-                  <label class="form-check-label">
-                    <input type="checkbox" class="form-check-input" value="" id="peppers"/>Peppers
-                  </label>
-                </div>
-                <p>Toppings selected: <span id="selectedToppings"></span></p>
-              </div>
+        <div class="cheeseOption hidden">
+          <h4>Select Cheese</h4>
+          <div class="dropdown">
+            <button
+              class="btn btn-secondary dropdown-toggle"
+              type="button"
+              id="dropdownMenuButtonForCheese"
+              data-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+            >
+              Choose Cheese
+            </button>
+            <div
+              class="cheeseDropdown dropdown-menu"
+              aria-labelledby="dropdownMenuButtonForCheese"
+            >
+              <a class="dropdown-item" href="#" id="lightCheese"
+                >Light: no charge</a
+              >
+              <a class="dropdown-item" href="#" id="defaultCheese"
+                >Normal (default): no charge</a
+              >
+              <a class="dropdown-item" href="#" id="extraCheese">Extra: +$2.99</a>
+              <a class="dropdown-item" href="#" id="doubleCheese">Double: +$3.99</a>
+            </div>
+          </div>
+          <p id="selectedCheese">Selected Cheese - Normal (default): no charge</p>
         </div>
-        <br>
-        <button id="finishBtn">Finished Building Pizza</button>
-        
+    
+        <div class="sauceOption hidden">
+          <h4>Select Sauce</h4>
+          <div class="dropdown">
+            <button
+              class="btn btn-secondary dropdown-toggle"
+              type="button"
+              id="dropdownMenuButtonForSaurce"
+              data-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+            >
+              Choose Sauce
+            </button>
+            <div
+              class="sauceDropdown dropdown-menu"
+              aria-labelledby="dropdownMenuButtonForSaurce"
+            >
+              <a class="dropdown-item" href="#" id="regularTomato"
+                >Regular Tomato: no charge</a
+              >
+              <a class="dropdown-item" href="#" id="heartyTomato"
+                >Hearty Tomato: +$.99</a
+              >
+              <a class="dropdown-item" href="#" id="bbqSauce">BBQ Sauce: +$1.99</a>
+            </div>
+          </div>
+          <p id="selectedSauce">Selected Sauce - Regular Tomato: no charge</p>
+        </div>
+    
+        <div class="toppingOption hidden">
+          <h4>Add Toppings - Each $ .99</h4>
+          <div class="form-check">
+            <label class="form-check-label">
+              <input type="checkbox" class="form-check-input" value="Pepperoni" id="pepperoni" />Pepperoni
+            </label>
+          </div>
+          <div class="form-check">
+            <label class="form-check-label">
+              <input type="checkbox" class="form-check-input" value="" id="sausage"/>Sausage
+            </label>
+          </div>
+          <div class="form-check">
+            <label class="form-check-label">
+              <input type="checkbox" class="form-check-input" value="" id="ham"/>Ham
+            </label>
+          </div>
+          <div class="form-check">
+            <label class="form-check-label">
+              <input type="checkbox" class="form-check-input" value="" id="bacon"/>Bacon
+            </label>
+          </div>
+          <div class="form-check">
+            <label class="form-check-label">
+              <input type="checkbox" class="form-check-input" value="" id="salami"/>Salami
+            </label>
+          </div>
+          <div class="form-check">
+            <label class="form-check-label">
+              <input type="checkbox" class="form-check-input" value="" id="peppers"/>Peppers
+            </label>
+          </div>
+          <p>Toppings selected: <span id="selectedToppings"></span></p>
+        </div>
     
         <div class="container">
           <div class="row">
