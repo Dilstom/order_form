@@ -9,12 +9,18 @@ let zip = $("zip");
 let phone = $("phone");
 let email = $("email");
 let state = $("state");
-let priceTotal = $("priceTotal");
+// let priceTotal = $("priceTotal");
 let dropdown = document.querySelector(".addressType .dropdown-menu a");
 let otherInput = document.querySelector(".hidden");
 let e = document.querySelector(".addressType .dropdown-menu");
 
-// let flag = false;
+// let fullNameObj = {
+//     fullName: '',
+//     zip: '',
+//     phone: '',
+//     email: '',
+//     state: ''
+// }
 
 // VALIDATORS
 function validateName(fullName) {

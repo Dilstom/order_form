@@ -9,7 +9,6 @@ let zip = $("zip");
 let phone = $("phone");
 let email = $("email");
 let state = $("state");
-let city = $("city");
 let addressType = $("addressType");
 let dropdown = document.querySelector(".addressType .dropdown-menu a");
 let otherInput = document.querySelector(".hidden");
@@ -22,10 +21,20 @@ let phoneError = $('phoneError');
 let cityError = $('cityError');
 let typeError = $('typeError');
 let streetAddress = $('streetAddress');
+let streetAddress2 = $('streetAddress2');
 let addressLine1Error = $('addressLine1Error');
 let saveBtn = $('saveBtn');
-let pizzaOrderForm = $('pizzaOrderForm');
-let billingInfo = $('billingInfo');
+let pOtherHelperInfo = $('pOtherHelperInfo');
+// BILLING ADDRESS VARIABLES
+let fullName2 = $("fullName2");
+let state2 = $("state2");
+let address1 = $("address1");
+let address2 = $("address2");
+let zip2 = $("zip2");
+let city2 = $("city2");
+let fullName2Error = $("fullName2Error");
+let address1Error = $("address1Error");
+
 
 let contactObj = {
     fullName: '',
@@ -34,7 +43,10 @@ let contactObj = {
     email: '',
     state: '',
     city: '',
-    type: ''
+    type: '',
+    otherType: '',
+    streetAddress: '',
+    streetAddress2: ''
 }
 
 // VALIDATORS
@@ -128,7 +140,7 @@ function validateStreet(streetAddress) {
     if(!streetAddress){
         addressLine1Error.innerHTML = '* Please, provide a street address';
     }else{
-        contactObj.city = streetAddress;
+        contactObj.streetAddress = streetAddress;
         addressLine1Error.innerHTML = '';
     }
     console.log('contact obj: ', contactObj)
@@ -136,11 +148,13 @@ function validateStreet(streetAddress) {
 
 function validateType(type) {
     type = type.trim();
+    // pOtherHelperInfo.innerHTML = ""
     if(!type){
         typeError.innerHTML = '* Please, provide a type name';
     }else{
         contactObj.otherType = type
         typeError.innerHTML = '';
+        pOtherHelperInfo.innerHTML = ''
     }
     console.log('contact obj: ', contactObj)
 }
@@ -151,16 +165,21 @@ e.addEventListener("click", function () {
     ".btn#dropdownMenuButtonAddressType:first-child"
   ).innerHTML;
   console.log("chosenJ: ", chosenOption);
-  contactObj.type = chosenOption;
   if (chosenOption === "Other") {
+    // contactObj.otherInput = chosenOption;
     console.log("this: ", this);
+    contactObj.type = '';
     otherInput.classList.remove("hidden");
+    pOtherHelperInfo.innerHTML = '* Please provide address type'
     addressType.addEventListener("blur", () => validateType(addressType.value));
   } else {
+    contactObj.type = chosenOption;
+    contactObj.otherType = '';
     if (!otherInput.classList.contains("hidden")) {
       otherInput.classList.add("hidden");
     }
   }
+  console.log('current contact: ', contactObj)
 });
 
 fullName.addEventListener("blur", () => validateName(fullName.value));
@@ -170,6 +189,9 @@ email.addEventListener("blur", () => validateEmail(email.value));
 state.addEventListener("blur", () => validateState(state.value));
 city.addEventListener("blur", () => validateCity(city.value));
 streetAddress.addEventListener("blur", () => validateStreet(streetAddress.value));
+streetAddress2.addEventListener("blur", (e) => 
+contactObj.streetAddress2 = e.target.value
+)
 
 /*
  ******  BUILD ORDER *******
@@ -212,9 +234,9 @@ let selectedOptionsObj = {
     dough: '',
     size: '',
     priceSize: 0,
-    selectedCheese: '',
+    selectedCheese: 'Normal (default): no charge',
     priceCheese: 0,
-    selectedSauce: '',
+    selectedSauce: 'Regular Tomato: no charge',
     priceSauce: 0,
     sum: 0,
     total: function(){
@@ -236,30 +258,54 @@ function removeAllChildNodes(parent) {
     console.log('Template Object: ', selectedOptionsObj)
   }
 
-//   let contactObj = {
-    // fullName: '',
-//     zip: '',
-//     phone: '',
-//     email: '',
-//     state: '',
-//     city: '',
-//     type: ''
+//   let selectedOptionsObj = {
+//     dough: '',
+//     size: '',
+//     priceSize: 0,
+//     selectedCheese: 'Normal (default): no charge',
+//     priceCheese: 0,
+//     selectedSauce: 'Regular Tomato: no charge',
+//     priceSauce: 0,
+//     sum: 0,
+//     total: function(){
+//         this.sum =  Number(this.priceCheese) + Number(this.priceSize) + Number(this.priceSauce) + (0.99 * this.topping.length);
+//         return this.sum.toFixed(2)
+//     },
+//     topping: []
 // }
 
 // MAIN FUNCTIONS
   function init() {
       let divRadioBtn = document.querySelectorAll(".radioBtn input");
       saveBtn.addEventListener('click', function() {
-        //   if(contactObj.fullName & contactObj.zip & contactObj.phone & contactObj.email & contactObj.state & contactObj.city){
+        console.log('ininit contactobj: ', contactObj)
+          if(contactObj.fullName && contactObj.zip && contactObj.phone && contactObj.email && contactObj.state && contactObj.city){
+            if(contactObj.type || contactObj.otherType) {
+              if(selectedOptionsObj.dough && selectedOptionsObj.size) {
+                console.log('PASS!')
+                pizzaOrderForm.classList.add('hidden');
+                billingInfo.classList.remove('hidden');
+        
+                typeError.innerHTML = "";
+                // CLOSE MODAL
+                document.getElementById('exampleModal').click();
+              } else {
+                alert('Please build your pizza')
+                // CLOSE MODAL
+                document.getElementById('exampleModal').click();
+              }
+            } else {
+              // pOtherHelperInfo.innerHTML = "* Missing address type"
+              alert('Please choose address type!');
+              // CLOSE MODAL
+              document.getElementById('exampleModal').click();
+            }
 
-        //   }else{
-
-        //   }
-        pizzaOrderForm.classList.add('hidden');
-        billingInfo.classList.remove('hidden');
-
-        // CLOSE MODAL
-        document.getElementById('exampleModal').click();
+          }else{
+            console.log('NO PASS!')
+            alert('Please add missing information to Delifery section')
+          }
+     
       })
 
       let checked = document.querySelectorAll('.dougnOption input');
@@ -278,7 +324,6 @@ function removeAllChildNodes(parent) {
           })
       })
   }
-  init();
 
   function selectSizeBuilder(divRadioBtn) {
     //   RECALC TOTAL AND RESET SIZE 
@@ -412,15 +457,17 @@ function toppingCheckboxes(e) {
 // }
   
 
-  
+  init();
 
 
   // BILLING VARIABLES
-// let sameAsDeliveryInfo = $('sameAsDeliveryInfo');
-// console.log('same as delivery info; ', sameAsDeliveryInfo)
+let sameAsDeliveryInfo = $('sameAsDeliveryInfo');
+console.log('same as delivery info; ', sameAsDeliveryInfo)
 
-// sameAsDeliveryInfo.addEventListener('click', function() {
-// //     pizzaOrderForm.classList.add('hidden');
-// //     billingInfo.classList.remove('hidden')
-// 'hi'
-// })
+sameAsDeliveryInfo.addEventListener('click', function(e) {
+    if(e.target.checked){
+
+    }else {
+
+    }
+})
