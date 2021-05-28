@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Billing Information</title>
+     <!-- Bootstrap 4 -->
+     <link
+     rel="stylesheet"
+     href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+   />
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+   <link rel="stylesheet" href="css/main.css" />
+</head>
+<body>
+    <div class="jumbotron jumbotron-fluid">
+        <div class="container">
+          <h1 class="display-4">Pizza Order Form</h1>
+          <p class="lead">Build your own pizza</p>
+        </div>
+      </div>
+      <!-- <div class="container"> -->
+      <!-- DELIVERY LOCATION -->
+      <div class="row">
+        <form class="form-horizontal">
+          <fieldset>
+            <!-- Address form -->
+  
+            <h2>Billing Address</h2>
+  
+            <div class="form-group form-check">
+                <input type="checkbox" class="form-check-input" id="sameAsDeliveryInfo">
+                <label class="form-check-label" for="sameAsDeliveryInfo">Same as delivery information</label>
+              </div>
+            <!-- full-name input-->
+            <div class="control-group">
+              <label class="control-label">Full Name</label>
+              <div class="controls">
+                <input
+                  id="fullName"
+                  name="fullName"
+                  type="text"
+                  placeholder="Full Name"
+                  class="input-xlarge"
+                />
+                <p class="help-block"></p>
+                <p class="handleError" id="fullNameError"></p>
+              </div>
+            </div>
+            
+            <!-- address-line1 input-->
+            <div class="control-group">
+              <label class="control-label">Address Line 1</label>
+              <div class="controls">
+                <input
+                id="streetAddress"
+                name="address-line1"
+                type="text"
+                placeholder="Street address"
+                class="input-xlarge"
+                />
+                <!-- <p class="help-block">Street address</p> -->
+                <p class="handleError" id="addressLine1Error"></p>
+              </div>
+            </div>
+            <!-- address-line2 input-->
+            <div class="control-group">
+              <label class="control-label">Address Line 2 - Optional</label>
+              <div class="controls">
+                <input
+                  id="address-line2"
+                  name="address-line2"
+                  type="text"
+                  placeholder="Apartment, suite , unit, building, floor, etc."
+                  class="input-xlarge"
+                />
+                
+                <!-- <p class="help-block">
+                  Apartment, suite , unit, building, floor, etc.
+                </p> -->
+                <p class="handleError" id=""></p>
+              </div>
+            </div>
+            <!-- city input-->
+            <div class="control-group">
+              <label class="control-label">City / Town</label>
+              <div class="controls">
+                <input
+                  id="city"
+                  name="city"
+                  type="text"
+                  placeholder="city"
+                  class="input-xlarge"
+                />
+                <p class="help-block"></p>
+                <p class="handleError" id="cityError"></p>
+              </div>
+            </div>
+            <!-- region input-->
+            <div class="control-group">
+              <label class="control-label">State</label>
+              <div class="controls">
+                <input
+                  id="state"
+                  name="state"
+                  type="text"
+                  placeholder="state"
+                  class="input-xlarge"
+                />
+                <p class="help-block"></p>
+                <p class="handleError" id="stateError"></p>
+              </div>
+            </div>
+            <!-- postal-code input-->
+            <div class="control-group">
+              <label class="control-label">Zip / Postal Code</label>
+              <div class="controls">
+                <input
+                  id="zip"
+                  name="zip"
+                  type="text"
+                  placeholder="zip code"
+                  class="input-xlarge"
+                />
+                <p class="help-block"></p>
+                <p class="handleError" id="zipError"></p>
+              </div>
+            </div>
+          </fieldset>
+        </form>
+      </div>
+
+      <script src="js/index1.js"></script>
+      <script
+        type="text/javascript"
+        src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"
+      ></script>
+</body>
+</html>
