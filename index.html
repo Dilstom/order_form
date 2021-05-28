@@ -25,6 +25,7 @@
     </div>
     <!-- <div class="container"> -->
     <!-- DELIVERY LOCATION -->
+    <!-- <div id="pizzaOrderForm" class="hidden"> -->
     <div id="pizzaOrderForm">
       <div class="row">
         <form class="form-horizontal">
@@ -385,6 +386,8 @@
         >
           Finished Building Pizza
         </button>
+        <br />
+        <br />
         <!-- Modal -->
         <div
           class="modal fade"
@@ -427,25 +430,10 @@
             </div>
           </div>
         </div>
-
-        <div class="container">
-          <div class="row">
-            <hr />
-            <div class="col-lg-12">
-              <div class="col-md-8">
-                <a href="#">Terms of Service</a> | <a href="#">Privacy</a>
-              </div>
-              <div class="col-md-4">
-                <p class="muted pull-right">
-                  © 2013 Company Name. All rights reserved
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
     </div>
 
+    <!-- <div id="billingInfo"> -->
     <div id="billingInfo" class="hidden">
       <div class="row">
         <form class="form-horizontal">
@@ -513,7 +501,6 @@
                 <p class="handleError" id=""></p>
               </div>
             </div>
-            <!-- city input-->
             <div class="control-group">
               <label class="control-label">City / Town</label>
               <div class="controls">
@@ -528,7 +515,6 @@
                 <p class="handleError" id="city2Error"></p>
               </div>
             </div>
-            <!-- region input-->
             <div class="control-group">
               <label class="control-label">State</label>
               <div class="controls">
@@ -543,7 +529,6 @@
                 <p class="handleError" id="state2Error"></p>
               </div>
             </div>
-            <!-- postal-code input-->
             <div class="control-group">
               <label class="control-label">Zip / Postal Code</label>
               <div class="controls">
@@ -560,6 +545,111 @@
             </div>
           </fieldset>
         </form>
+        <button type="button" class="btn btn-success" id="btnPayment">
+          Continue to Payment
+        </button>
+      </div>
+    </div>
+
+    <div id="divPayment">
+      <article class="card">
+        <form role="form">
+          <div class="form-group">
+            <label for="username">Full name (on the card)</label>
+            <div class="input-group">
+              <input
+                type="text"
+                class="form-control"
+                name="username"
+                placeholder=""
+                required=""
+              />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="cardNumber">Card number</label>
+            <div class="input-group">
+              <input
+                type="text"
+                class="form-control"
+                name="cardNumber"
+                placeholder=""
+              />
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-sm-8">
+              <div class="form-group">
+                <label><span class="hidden-xs">Expiration</span> </label>
+                <div class="form-inline">
+                  <select class="form-control" style="width: 45%">
+                    <option>MM</option>
+                    <option>01</option>
+                    <option>02</option>
+                    <option>03</option>
+                    <option>04</option>
+                    <option>05</option>
+                    <option>06</option>
+                    <option>07</option>
+                    <option>08</option>
+                    <option>09</option>
+                    <option>10</option>
+                    <option>11</option>
+                    <option>12</option>
+                  </select>
+                  <span style="width: 10%; text-align: center"> / </span>
+                  <select class="form-control" style="width: 45%">
+                    <option>Year</option>
+                    <option>2021</option>
+                    <option>2022</option>
+                    <option>2023</option>
+                    <option>2024</option>
+                    <option>2025</option>
+                    <option>2026</option>
+                    <option>2028</option>
+                    <option>2029</option>
+                    <option>2030</option>
+                    <option>2031</option>
+                    <option>2032</option>
+                    <option>2033</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label>CVV</label>
+                <input
+                  class="form-control"
+                  required=""
+                  type="text"
+                  placeholder="e.g., 123"
+                />
+              </div>
+            </div>
+          </div>
+          <button class="subscribe btn btn-primary btn-block" type="button">
+            Confirm
+          </button>
+        </form>
+      </article>
+    </div>
+
+    <div class="container">
+      <div class="row">
+        <hr />
+        <div class="col-lg-12">
+          <div class="col-md-8">
+            <a href="#">Terms of Service</a> | <a href="#">Privacy</a>
+          </div>
+          <div class="col-md-4">
+            <p class="muted pull-right">
+              © 2021 Build Pizza. All rights reserved
+            </p>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -575,12 +665,8 @@
           $(".addressType .btn:first-child").text($(this).text());
           $(".addressType  .btn:first-child").val($(this).text());
         });
-        // $("#selectSizeDiv .dropdown-menu a").click(function(){
 
-        // $("#selectSizeDiv .btn:first-child").text($(this).text());
-        // $("#selectSizeDiv  .btn:first-child").val($(this).text());
-
-        // });
+        $("body").tooltip({ selector: "[data-toggle=tooltip]" });
       });
     </script>
   </body>

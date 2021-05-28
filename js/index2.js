@@ -20,20 +20,12 @@ let emailError = $('emailError');
 let phoneError = $('phoneError');
 let cityError = $('cityError');
 let typeError = $('typeError');
+let addressLine1Error = $('addressLine1Error');
 let streetAddress = $('streetAddress');
 let streetAddress2 = $('streetAddress2');
-let addressLine1Error = $('addressLine1Error');
 let saveBtn = $('saveBtn');
 let pOtherHelperInfo = $('pOtherHelperInfo');
-// BILLING ADDRESS VARIABLES
-let fullName2 = $("fullName2");
-let state2 = $("state2");
-let address1 = $("address1");
-let address2 = $("address2");
-let zip2 = $("zip2");
-let city2 = $("city2");
-let fullName2Error = $("fullName2Error");
-let address1Error = $("address1Error");
+
 
 
 let contactObj = {
@@ -49,31 +41,42 @@ let contactObj = {
     streetAddress2: ''
 }
 
+let billingObj = {
+  fullName2: '',
+  zip2: '',
+  state2: '',
+  city2: '',
+  address1: '',
+  address2: ''
+}
+
 // VALIDATORS
-function validateName(fullName) {
+function validateName(fullName, billing) {
   let regCheck = /^[a-z ,.'-]+$/i;
   fullName = fullName.trim();
   if (regCheck.test(fullName)) {
     console.log("pass");
-    contactObj.fullName = fullName;
-    fullNameError.innerHTML = '';
+    billing ? billingObj.fullName2 = fullName : contactObj.fullName = fullName;
+    billing ? fullName2Error.innerHTML = '': fullNameError.innerHTML = '';
   } else {
     console.log("fail");
-    fullNameError.innerHTML = '* Please, provide valid name (letters only)';
+    billing ? fullName2Error.innerHTML = '* Please, provide valid name (letters only)': fullNameError.innerHTML = '* Please, provide valid name (letters only)';
+
+    // fullNameError.innerHTML = '* Please, provide valid name (letters only)';
 }
 console.log("full name in validate; ", fullName);
 }
 
-function validateZip(zip) {
+function validateZip(zip, billing) {
     let regCheck = /^\d{5}(?:[-\s]\d{4})?$/;
     zip = zip.trim();
     if (regCheck.test(zip)) {
         console.log("Z pass");
-        contactObj.zip = zip;
-        zipError.innerHTML = '';
+       billing ? billingObj.zip2 = zip :  contactObj.zip = zip;
+       billing ? zip2Error.innerHTML = '' : zipError.innerHTML = '';
     } else {
         console.log("Z fail");
-        zipError.innerHTML = '* Please, provide valid zip code';
+       billing ? zip2Error.innerHTML = '* Please, provide valid zip code' : zipError.innerHTML = '* Please, provide valid zip code';
     }
     console.log("zip in validate; ", zip);
 }
@@ -107,7 +110,7 @@ function validateEmail(email) {
     console.log("email in validate; ", email);
 }
 
-function validateState(state) {
+function validateState(state, billing) {
     const regCheck = /^(A[KLRZ]|C[AOT]|D[CE]|FL|GA|HI|I[ADLN]|K[SY]|LA|M[ADEINOST]|N[CDEHJMVY]|O[HKR]|P[AR]|RI|S[CD]|T[NX]|UT|V[AIT]|W[AIVY])$/;
     // const regCheck = /\b[A-Z]{2}\b/;
     // return re.test(String(state).toLowerCase());
@@ -115,33 +118,33 @@ function validateState(state) {
     
     if (regCheck.test(String(state))) {
         console.log("state pass");
-        contactObj.state = state;
-        stateError.innerHTML = '';
+        billing ? billingObj.state2 = state : contactObj.state = state;
+        billing ? state2Error.innerHTML = '' : stateError.innerHTML = '';
     } else {
         console.log("state fail");
-        stateError.innerHTML = '* Please, provide valid two-letters State f/e: CA';
+        billing ? state2Error.innerHTML = '* Please, provide valid two-letters State f/e: CA' : stateError.innerHTML = '* Please, provide valid two-letters State f/e: CA';
     }
     console.log("state in validate; ", state);
 }
 
-function validateCity(cityName) {
+function validateCity(cityName, billing) {
     cityName = cityName.trim();
     if(!cityName){
-        cityError.innerHTML = '* Please, provide a city name';
+      billing ? city2Error.innerHTML = '* Please, provide a city name': cityError.innerHTML = '* Please, provide a city name';
     }else{
-        contactObj.city = cityName;
-        cityError.innerHTML = '';
+        billing ? billingObj.city2 = cityName : contactObj.city = cityName;
+        billing ? city2Error.innerHTML = '' : cityError.innerHTML = '';
     }
     console.log('contact obj: ', contactObj)
 }
 
-function validateStreet(streetAddress) {
+function validateStreet(streetAddress, billing) {
     streetAddress = streetAddress.trim();
     if(!streetAddress){
-        addressLine1Error.innerHTML = '* Please, provide a street address';
+       billing ? address1Error.innerHTML = '* Please, provide a street address' : addressLine1Error.innerHTML = '* Please, provide a street address';
     }else{
-        contactObj.streetAddress = streetAddress;
-        addressLine1Error.innerHTML = '';
+       billing ? billingObj.address1 = streetAddress : contactObj.streetAddress = streetAddress;
+       billing ? address1Error.innerHTML = '' :  addressLine1Error.innerHTML = '';
     }
     console.log('contact obj: ', contactObj)
 }
@@ -182,13 +185,13 @@ e.addEventListener("click", function () {
   console.log('current contact: ', contactObj)
 });
 
-fullName.addEventListener("blur", () => validateName(fullName.value));
-zip.addEventListener("blur", () => validateZip(zip.value));
+fullName.addEventListener("blur", () => validateName(fullName.value, billing=false));
+zip.addEventListener("blur", () => validateZip(zip.value,  billing=false));
 phone.addEventListener("blur", () => validatePhone(phone.value));
 email.addEventListener("blur", () => validateEmail(email.value));
-state.addEventListener("blur", () => validateState(state.value));
-city.addEventListener("blur", () => validateCity(city.value));
-streetAddress.addEventListener("blur", () => validateStreet(streetAddress.value));
+state.addEventListener("blur", () => validateState(state.value,  billing=false));
+city.addEventListener("blur", () => validateCity(city.value,  billing=false));
+streetAddress.addEventListener("blur", () => validateStreet(streetAddress.value,  billing=false));
 streetAddress2.addEventListener("blur", (e) => 
 contactObj.streetAddress2 = e.target.value
 )
@@ -289,6 +292,7 @@ function removeAllChildNodes(parent) {
                 typeError.innerHTML = "";
                 // CLOSE MODAL
                 document.getElementById('exampleModal').click();
+                buildBilling();
               } else {
                 alert('Please build your pizza')
                 // CLOSE MODAL
@@ -459,15 +463,69 @@ function toppingCheckboxes(e) {
 
   init();
 
-
-  // BILLING VARIABLES
+  // BILLING ADDRESS VARIABLES
+let fullName2 = $("fullName2");
+let state2 = $("state2");
+let address1 = $("address1");
+let address2 = $("address2");
+let zip2 = $("zip2");
+let city2 = $("city2");
+let fullName2Error = $("fullName2Error");
+let address1Error = $("address1Error");
+let city2Error = $("city2Error");
+let state2Error = $("state2Error");
+let zip2Error = $("zip2Error");
 let sameAsDeliveryInfo = $('sameAsDeliveryInfo');
 console.log('same as delivery info; ', sameAsDeliveryInfo)
 
+function buildBilling() {
+  fullName2.addEventListener("blur", () => validateName(fullName2.value, billing=true));
+  zip2.addEventListener("blur", () => validateZip(zip2.value, billing=true));
+  state2.addEventListener("blur", () => validateState(state2.value, billing=true));
+  city2.addEventListener("blur", () => validateCity(city2.value, billing=true));
+  address1.addEventListener("blur", () => validateStreet(address1.value, billing=true));
+  address2.addEventListener("blur", (e) => billingObj.address2 = e.target.value);
+}
+
 sameAsDeliveryInfo.addEventListener('click', function(e) {
     if(e.target.checked){
-
+      console.log('checked')
+      fullName2.value = contactObj.fullName;
+      zip2.value = contactObj.zip;
+      city2.value = contactObj.city;
+      state2.value = contactObj.state;
+      address1.value = contactObj.streetAddress;
+      address2.value = contactObj.streetAddress2;
+      // 
+      // billingObj.fullName2 = contactObj.fullName;
+      // billingObj.zip2 = contactObj.zip;
+      // billingObj.city2 = contactObj.city;
+      // billingObj.state2 = contactObj.state;
+      // billingObj.address1 = contactObj.streetAddress;
+      // billingObj.address2 = contactObj.streetAddress2;
+      // DISABLE THE INPUT FIELD
+      fullName2.disabled = true;
+      zip2.disabled = true;
+      city2.disabled = true;
+      state2.disabled = true;
+      address1.disabled = true;
+      address2.disabled = true;
     }else {
-
+     console.log('unchecked');
+     console.log('billing obj: ', billingObj)
+     fullName2.value = billingObj.fullName2;
+     zip2.value = billingObj.zip2;
+     city2.value = billingObj.city2;
+     state2.value = billingObj.state2;
+     address1.value = billingObj.address1;
+     address2.value = billingObj.address2;
+     // DISABLE THE INPUT FIELD
+     fullName2.disabled = false;
+     zip2.disabled = false;
+     city2.disabled = false;
+     state2.disabled = false;
+     address1.disabled = false;
+     address2.disabled = false;
     }
-})
+});
+
