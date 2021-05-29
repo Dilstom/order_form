@@ -545,16 +545,16 @@
             </div>
           </fieldset>
         </form>
-        <button type="button" class="btn btn-success" id="btnPayment">
-          Continue to Payment
-        </button>
       </div>
+          <button type="button" class="btn btn-success" id="btnPayment">
+            Continue to Payment
+          </button>
     </div>
 
-    <div id="divPayment">
-      <article class="card">
+    <div id="divPayment" class="container hidden">
+      <article class="card col-12 col-md-8">
         <form role="form">
-          <div class="form-group">
+          <!-- <div class="form-group">
             <label for="username">Full name (on the card)</label>
             <div class="input-group">
               <input
@@ -562,10 +562,10 @@
                 class="form-control"
                 name="username"
                 placeholder=""
-                required=""
+                id="fullNameCredit"
               />
             </div>
-          </div>
+          </div> -->
 
           <div class="form-group">
             <label for="cardNumber">Card number</label>
@@ -575,8 +575,10 @@
                 class="form-control"
                 name="cardNumber"
                 placeholder=""
+                id="cardNumber"
               />
             </div>
+            <p id="numberError" class='handleError'></p>
           </div>
 
           <div class="row">
@@ -584,7 +586,7 @@
               <div class="form-group">
                 <label><span class="hidden-xs">Expiration</span> </label>
                 <div class="form-inline">
-                  <select class="form-control" style="width: 45%">
+                  <select class="form-control monthSelect" style="width: 45%">
                     <option>MM</option>
                     <option>01</option>
                     <option>02</option>
@@ -600,7 +602,7 @@
                     <option>12</option>
                   </select>
                   <span style="width: 10%; text-align: center"> / </span>
-                  <select class="form-control" style="width: 45%">
+                  <select class="form-control yearSelect" style="width: 45%">
                     <option>Year</option>
                     <option>2021</option>
                     <option>2022</option>
@@ -616,6 +618,7 @@
                     <option>2033</option>
                   </select>
                 </div>
+                <p id="expError" class='handleError'></p>
               </div>
             </div>
             <div class="col-sm-4">
@@ -626,17 +629,21 @@
                   required=""
                   type="text"
                   placeholder="e.g., 123"
+                  id="cvv"
                 />
               </div>
+              <p id="cvvError" class='handleError'></p>
             </div>
           </div>
-          <button class="subscribe btn btn-primary btn-block" type="button">
+          <button class="subscribe btn btn-primary btn-block" type="button" id="confirmCard">
             Confirm
           </button>
         </form>
       </article>
     </div>
 
+    <br>
+    <br>
     <div class="container">
       <div class="row">
         <hr />
