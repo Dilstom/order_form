@@ -23,10 +23,13 @@
         <p class="lead">Build your own pizza</p>
       </div>
     </div>
+    <nav class="navbar navbar-light bg-light sticky-top">
+      <span class="navbar-brand mb-0 h1 ml-auto">Total: $<span class="priceTotal"></span></span>
+    </nav>
     <!-- <div class="container"> -->
     <!-- DELIVERY LOCATION -->
     <!-- <div id="pizzaOrderForm" class="hidden"> -->
-    <div id="pizzaOrderForm">
+    <div id="pizzaOrderForm" class="container">
       <div class="row">
         <form class="form-horizontal">
           <fieldset>
@@ -209,7 +212,7 @@
       <div class="container">
         <div class="justifyContent">
           <h2>Build Your Order</h2>
-          <h4>Total: $<span id="priceTotal"></span></h4>
+          <!-- <h4>Total: $<span class="priceTotal"></span></h4> -->
         </div>
         <div class="dougnOption">
           <h4>Select dough option:</h4>
@@ -434,7 +437,7 @@
     </div>
 
     <!-- <div id="billingInfo"> -->
-    <div id="billingInfo" class="hidden">
+    <div id="billingInfo" class="hidden container">
       <div class="row">
         <form class="form-horizontal">
           <fieldset>
@@ -546,12 +549,15 @@
           </fieldset>
         </form>
       </div>
-          <button type="button" class="btn btn-success" id="btnPayment">
-            Continue to Payment
-          </button>
+      <div class="row">
+        <button type="button" class="btn btn-success" id="btnPayment">
+          Continue to Payment
+        </button>
+      </div>
     </div>
 
     <div id="divPayment" class="container hidden">
+      <h2>Payment</h2>
       <article class="card col-12 col-md-8">
         <form role="form">
           <!-- <div class="form-group">
@@ -635,11 +641,15 @@
               <p id="cvvError" class='handleError'></p>
             </div>
           </div>
-          <button class="subscribe btn btn-primary btn-block" type="button" id="confirmCard">
-            Confirm
-          </button>
         </form>
       </article>
+      <br>
+      <div class="card col-12 col-md-8">
+
+        <button class="subscribe btn btn-primary btn-block" type="button" id="confirmCard">
+          Place Your Order
+      </div>
+      </button>
     </div>
 
     <br>

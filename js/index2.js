@@ -250,7 +250,7 @@ const pizzaSize = {
 let hiddenClass = document.querySelector(".hiddenDiv");
 let selectSizeDiv = $("selectSizeDiv");
 let selectedDoughSize = $("selectedDoughSize");
-let priceTotal = $("priceTotal");
+let priceTotal = document.querySelector(".priceTotal");
 let cheeseDropdown = document.querySelector(".cheeseDropdown");
 let sauceDropdown = document.querySelector(".sauceDropdown");
 let toppingOption = document.querySelector(".toppingOption");
@@ -341,7 +341,7 @@ function init() {
       }
     } else {
       console.log("NO PASS!");
-      alert("Please add missing information to Delifery section");
+      alert("Please add missing information to Delivery section");
     }
   });
 
@@ -521,7 +521,8 @@ let cardNumber = $("cardNumber");
 let cvvError = $("cvvError");
 let expError = $("expError");
 let numberError = $("numberError");
-let btnPayment = $('btnPayment');
+let btnPayment = $("btnPayment");
+let divPayment = $("divPayment");
 // console.log('same as delivery info; ', sameAsDeliveryInfo);
 
 let selectedDate = {
@@ -545,7 +546,7 @@ yearSelect.addEventListener("change", (e) => {
 function validateCvv() {
   if (regCvv.test(cvv.value)) {
     cvvError.innerHTML = "";
-    console.log('CVV PASS')
+    console.log("CVV PASS");
     return true;
   } else {
     cvvError.innerHTML = "* Three-digits code printed on the back of the card";
@@ -554,91 +555,41 @@ function validateCvv() {
 }
 
 function validateNumber(value) {
-  if(value === '') {
-    numberError.innerHTML = 'Enter card number';
+  if (value === "") {
+    numberError.innerHTML = "Enter card number";
     return false;
   }
-  
-  // const validateCardNumber = (number) => {
-  //   //Check if the number contains only numeric value
-  //   //and is of between 13 to 19 digits
-  //   const regex = new RegExp("^[0-9]{13,19}$");
-  //   if (!regex.test(number)) {
-  //     numberError.innerHTML = 'Enter valid card number';
-  //     return false;
-  //   }
-
-  //   return luhnCheck(number);
-  // };
-
-  // const luhnCheck = (val) => {
-  //   let checksum = 0; // running checksum total
-  //   let j = 1; // takes value of 1 or 2
-
-  //   // Process each digit one by one starting from the last
-  //   for (let i = val.length - 1; i >= 0; i--) {
-  //     let calc = 0;
-  //     // Extract the next digit and multiply by 1 or 2 on alternative digits.
-  //     calc = Number(val.charAt(i)) * j;
-
-  //     // If the result is in two digits add 1 to the checksum total
-  //     if (calc > 9) {
-  //       checksum = checksum + 1;
-  //       calc = calc - 10;
-  //     }
-
-  //     // Add the units element to the checksum total
-  //     checksum = checksum + calc;
-
-  //     // Switch the value of j
-  //     if (j == 1) {
-  //       j = 2;
-  //     } else {
-  //       j = 1;
-  //     }
-  //   }
-
-  //   //Check if it is divisible by 10 or not.
-  //   if(checksum % 10 == 0) {
-  //     numberError.innerHTML = ''
-  //     return true
-  //   } else {
-  //     numberError.innerHTML = 'Invalid card number';
-  //     return false
-  //   }
-  //   // return checksum % 10 == 0;
-  // };
-
-  // console.log('validateNumber', validateCardNumber(value));
-    // Accept only digits, dashes or spaces
-	if (/[^0-9-\s]+/.test(value)){
-    numberError.innerHTML = 'Enter valid card number';
+  // SOLUTION CREDIT - https://gist.github.com/DiegoSalazar/4075533
+  // Accept only digits, dashes or spaces
+  if (/[^0-9-\s]+/.test(value)) {
+    numberError.innerHTML = "Enter valid card number";
     return false;
-  } 
+  }
 
-	// The Luhn Algorithm. It's so pretty.
-	let nCheck = 0, bEven = false;
-	value = value.replace(/\D/g, "");
+  // The Luhn Algorithm.
+  let nCheck = 0,
+    bEven = false;
+  value = value.replace(/\D/g, "");
 
-	for (var n = value.length - 1; n >= 0; n--) {
-		var cDigit = value.charAt(n),
-			  nDigit = parseInt(cDigit, 10);
+  for (var n = value.length - 1; n >= 0; n--) {
+    var cDigit = value.charAt(n),
+      nDigit = parseInt(cDigit, 10);
 
-		if (bEven && (nDigit *= 2) > 9) nDigit -= 9;
+    if (bEven && (nDigit *= 2) > 9) nDigit -= 9;
 
-		nCheck += nDigit;
-		bEven = !bEven;
-	}
+    nCheck += nDigit;
+    bEven = !bEven;
+  }
 
-	  console.log('PASS OR NOT: ', nCheck % 10) == 0;
+  console.log("PASS OR NOT: ", nCheck % 10) == 0;
   // return (nCheck % 10) == 0;
-      if((nCheck % 10) == 0) {
-      numberError.innerHTML = ''
-      return true
-    } else {
-      numberError.innerHTML = 'Invalid card number';
-      return false
-    }
+  if (nCheck % 10 == 0) {
+    numberError.innerHTML = "";
+    return true;
+  } else {
+    numberError.innerHTML = "Invalid card number";
+    return false;
+  }
 }
 
 function validateExpDate() {
@@ -650,13 +601,13 @@ function validateExpDate() {
     return true;
   } else {
     // console.log('check month: ', selectedDate.month)
-    if(selectedDate.month == "" || selectedDate.month === 'MM'){
-      expError.innerHTML = '* Choose expiration month';
+    if (selectedDate.month == "" || selectedDate.month === "MM") {
+      expError.innerHTML = "* Choose expiration month";
       return false;
-    }else if(selectedDate.year == "" || selectedDate.year === 'Year'){
-        expError.innerHTML = '* Choose expiration year';
-        return false;
-    }else{
+    } else if (selectedDate.year == "" || selectedDate.year === "Year") {
+      expError.innerHTML = "* Choose expiration year";
+      return false;
+    } else {
       expError.innerHTML = "* Expired card";
       alert("Card has been expired, update your card");
       return false;
@@ -672,28 +623,11 @@ confirmCard.addEventListener("click", (e) => {
   let checkNumber = validateNumber(value);
   // let cardNumber = validateNumber(value);
   let validateDate = validateExpDate();
-  // let currDate = new Date(new Date().getFullYear(), new Date().getMonth() + 1);
-  // let expDate = new Date(selectedDate.year, selectedDate.month);
-  // if (expDate > currDate) {
-  //   console.log("expiration date is OK");
-  //   expError.innerHTML = "";
-  // } else {
-  //   // console.log('check month: ', selectedDate.month)
-  //   if(selectedDate.month == "" || selectedDate.month === 'MM'){
-  //     expError.innerHTML = '* Choose expiration month'
-  //   }else if(selectedDate.year == "" || selectedDate.year === 'Year'){
-  //       expError.innerHTML = '* Choose expiration year'
-
-  //   }else{
-  //     expError.innerHTML = "* Expired card";
-  //     alert("Card has been expired, update your card");
-  //   }
-  // }
-console.log('three passes', passedCvv, checkNumber, validateDate)
-  if(passedCvv && checkNumber && validateDate) {
-    console.log('ALL PASS - SUBMITTED')
+  console.log("three passes", passedCvv, checkNumber, validateDate);
+  if (passedCvv && checkNumber && validateDate) {
+    console.log("ALL PASS - SUBMITTED");
   } else {
-    console.log('SOMTHEING IS MISSING!')
+    console.log("SOMTHEING IS MISSING!");
   }
 });
 
@@ -761,7 +695,33 @@ sameAsDeliveryInfo.addEventListener("click", function (e) {
   }
 });
 
-btnPayment.addEventListener('click', e => {
+btnPayment.addEventListener("click", (e) => {
   e.preventDefault();
-  
-})
+
+  console.log("sameAsDeliveryInfo: ", sameAsDeliveryInfo.checked);
+  if (sameAsDeliveryInfo.checked) {
+    // proceedToCardPayment();
+    console.log("Proceed to card payment");
+    divPayment.classList.remove("hidden");
+    billingInfo.classList.add("hidden");
+    priceTotal.innerHTML = selectedOptionsObj.sum;
+    console.log("SUM HERE: ", selectedOptionsObj.sum);
+  } else {
+    console.log("billingObj: ", billingObj);
+    if (
+      billingObj.fullName2 &&
+      billingObj.state2 &&
+      billingObj.zip2 &&
+      billingObj.address1
+    ) {
+      // proceedToCardPayment()
+      console.log("Proceed to card payment");
+      divPayment.classList.remove("hidden");
+      billingInfo.classList.add("hidden");
+      priceTotal.innerHTML = selectedOptionsObj.sum;
+      console.log("SUM HERE: ", selectedOptionsObj.sum);
+    } else {
+      alert("Please, fill out the required fields");
+    }
+  }
+});
