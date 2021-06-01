@@ -289,21 +289,6 @@ function calculateTotal() {
   console.log("Template Object: ", selectedOptionsObj);
 }
 
-//   let selectedOptionsObj = {
-//     dough: '',
-//     size: '',
-//     priceSize: 0,
-//     selectedCheese: 'Normal (default): no charge',
-//     priceCheese: 0,
-//     selectedSauce: 'Regular Tomato: no charge',
-//     priceSauce: 0,
-//     sum: 0,
-//     total: function(){
-//         this.sum =  Number(this.priceCheese) + Number(this.priceSize) + Number(this.priceSauce) + (0.99 * this.topping.length);
-//         return this.sum.toFixed(2)
-//     },
-//     topping: []
-// }
 
 // MAIN FUNCTIONS
 function init() {
@@ -357,7 +342,7 @@ function init() {
       selectSizeBuilder(dough);
       selectCheese();
       selectSauce();
-      selectTopping();
+      // selectTopping();
     });
   });
 }
@@ -395,12 +380,6 @@ function selectSizeBuilder(divRadioBtn) {
 
   // GET RADIO BUTTON ID TO ACCESS OBJECT KEY
   let parentId = divRadioBtn.getAttribute("id");
-  // console.log("parentId: ", parentId);
-  // console.log("selected object", pizzaSize[parentId]);
-  // console.log(
-  //   "selected object length",
-  //   Object.keys(pizzaSize[parentId]).length
-  // );
   Object.keys(pizzaSize[parentId]).forEach((key) => {
     let aTag = document.createElement("a");
     aTag.classList = "dropdown-item";
@@ -423,6 +402,7 @@ function selectSizeBuilder(divRadioBtn) {
     selectedDoughSize.innerHTML = "Selected size: " + selectedOptionsObj.size;
     console.log("selectedOptionsObj in builder: ", selectedOptionsObj);
     getSelectedSize(e.target.innerHTML);
+    // selectTopping();
     calculateTotal();
     // priceTotal.innerHTML = selectedOptionsObj.total();
     // console.log('total: ', selectedOptionsObj.total())
@@ -451,7 +431,6 @@ function selectCheese() {
 }
 
 function selectSauce() {
-  // selectedSauce.innerHTML ='Selected Sauce: Regular Tomato: no charge';
   sauceDropdown.addEventListener("click", (e) => {
     e.preventDefault();
     console.log("e target: ", e.target.id);
@@ -465,7 +444,7 @@ function selectSauce() {
   });
 }
 
-function selectTopping() {
+// function selectTopping() {
   // selectedOptionsObj.topping = [];
   console.log("checking in selectTopping: ", selectedOptionsObj.topping);
   let checkboxes = document
@@ -473,7 +452,7 @@ function selectTopping() {
     .forEach((checkbox) =>
       checkbox.addEventListener("click", (e) => toppingCheckboxes(e))
     );
-}
+// }
 
 function toppingCheckboxes(e) {
   console.log("checking in toppingCheckboxe: ", selectedOptionsObj.topping);
@@ -486,7 +465,10 @@ function toppingCheckboxes(e) {
   } else {
     let i = selectedOptionsObj.topping.indexOf(e.target.id);
     console.log("i: ", i);
-    selectedOptionsObj.topping.splice(i, 1);
+    // IF ID EXISTS - REMOVE IT
+    if(i>=0){
+      selectedOptionsObj.topping.splice(i, 1);
+    }
   }
   pSelectedToppings.innerHTML = selectedOptionsObj.topping;
   calculateTotal();
@@ -523,6 +505,7 @@ let expError = $("expError");
 let numberError = $("numberError");
 let btnPayment = $("btnPayment");
 let divPayment = $("divPayment");
+let orderConfirmation = $('orderConfirmation');
 // console.log('same as delivery info; ', sameAsDeliveryInfo);
 
 let selectedDate = {
@@ -615,113 +598,115 @@ function validateExpDate() {
   }
 }
 
-confirmCard.addEventListener("click", (e) => {
-  e.preventDefault();
-  // CHECK EXPARATION DATE
-  let value = cardNumber.value;
-  let passedCvv = validateCvv();
-  let checkNumber = validateNumber(value);
-  // let cardNumber = validateNumber(value);
-  let validateDate = validateExpDate();
-  console.log("three passes", passedCvv, checkNumber, validateDate);
-  if (passedCvv && checkNumber && validateDate) {
-    console.log("ALL PASS - SUBMITTED");
-  } else {
-    console.log("SOMTHEING IS MISSING!");
-  }
-});
-
 function buildBilling() {
   fullName2.addEventListener("blur", () =>
-    validateName(fullName2.value, (billing = true))
+  validateName(fullName2.value, (billing = true))
   );
   zip2.addEventListener("blur", () =>
-    validateZip(zip2.value, (billing = true))
+  validateZip(zip2.value, (billing = true))
   );
   state2.addEventListener("blur", () =>
-    validateState(state2.value, (billing = true))
+  validateState(state2.value, (billing = true))
   );
   city2.addEventListener("blur", () =>
-    validateCity(city2.value, (billing = true))
+  validateCity(city2.value, (billing = true))
   );
   address1.addEventListener("blur", () =>
-    validateStreet(address1.value, (billing = true))
+  validateStreet(address1.value, (billing = true))
   );
   address2.addEventListener(
     "blur",
     (e) => (billingObj.address2 = e.target.value)
-  );
-}
-
-sameAsDeliveryInfo.addEventListener("click", function (e) {
-  if (e.target.checked) {
-    console.log("checked");
-    fullName2.value = contactObj.fullName;
-    zip2.value = contactObj.zip;
-    city2.value = contactObj.city;
-    state2.value = contactObj.state;
-    address1.value = contactObj.streetAddress;
-    address2.value = contactObj.streetAddress2;
-    //
-    // billingObj.fullName2 = contactObj.fullName;
-    // billingObj.zip2 = contactObj.zip;
-    // billingObj.city2 = contactObj.city;
-    // billingObj.state2 = contactObj.state;
-    // billingObj.address1 = contactObj.streetAddress;
-    // billingObj.address2 = contactObj.streetAddress2;
-    // DISABLE THE INPUT FIELD
-    fullName2.disabled = true;
-    zip2.disabled = true;
-    city2.disabled = true;
-    state2.disabled = true;
-    address1.disabled = true;
-    address2.disabled = true;
-  } else {
-    console.log("unchecked");
-    console.log("billing obj: ", billingObj);
-    fullName2.value = billingObj.fullName2;
-    zip2.value = billingObj.zip2;
-    city2.value = billingObj.city2;
-    state2.value = billingObj.state2;
-    address1.value = billingObj.address1;
-    address2.value = billingObj.address2;
-    // DISABLE THE INPUT FIELD
-    fullName2.disabled = false;
-    zip2.disabled = false;
-    city2.disabled = false;
-    state2.disabled = false;
-    address1.disabled = false;
-    address2.disabled = false;
+    );
   }
-});
-
-btnPayment.addEventListener("click", (e) => {
-  e.preventDefault();
-
-  console.log("sameAsDeliveryInfo: ", sameAsDeliveryInfo.checked);
-  if (sameAsDeliveryInfo.checked) {
-    // proceedToCardPayment();
-    console.log("Proceed to card payment");
-    divPayment.classList.remove("hidden");
-    billingInfo.classList.add("hidden");
-    priceTotal.innerHTML = selectedOptionsObj.sum;
-    console.log("SUM HERE: ", selectedOptionsObj.sum);
-  } else {
-    console.log("billingObj: ", billingObj);
-    if (
-      billingObj.fullName2 &&
-      billingObj.state2 &&
-      billingObj.zip2 &&
-      billingObj.address1
-    ) {
-      // proceedToCardPayment()
+  
+  sameAsDeliveryInfo.addEventListener("click", function (e) {
+    if (e.target.checked) {
+      console.log("checked");
+      fullName2.value = contactObj.fullName;
+      zip2.value = contactObj.zip;
+      city2.value = contactObj.city;
+      state2.value = contactObj.state;
+      address1.value = contactObj.streetAddress;
+      address2.value = contactObj.streetAddress2;
+      //
+      // billingObj.fullName2 = contactObj.fullName;
+      // billingObj.zip2 = contactObj.zip;
+      // billingObj.city2 = contactObj.city;
+      // billingObj.state2 = contactObj.state;
+      // billingObj.address1 = contactObj.streetAddress;
+      // billingObj.address2 = contactObj.streetAddress2;
+      // DISABLE THE INPUT FIELD
+      fullName2.disabled = true;
+      zip2.disabled = true;
+      city2.disabled = true;
+      state2.disabled = true;
+      address1.disabled = true;
+      address2.disabled = true;
+    } else {
+      console.log("unchecked");
+      console.log("billing obj: ", billingObj);
+      fullName2.value = billingObj.fullName2;
+      zip2.value = billingObj.zip2;
+      city2.value = billingObj.city2;
+      state2.value = billingObj.state2;
+      address1.value = billingObj.address1;
+      address2.value = billingObj.address2;
+      // DISABLE THE INPUT FIELD
+      fullName2.disabled = false;
+      zip2.disabled = false;
+      city2.disabled = false;
+      state2.disabled = false;
+      address1.disabled = false;
+      address2.disabled = false;
+    }
+  });
+  
+  btnPayment.addEventListener("click", (e) => {
+    e.preventDefault();
+    
+    console.log("sameAsDeliveryInfo: ", sameAsDeliveryInfo.checked);
+    if (sameAsDeliveryInfo.checked) {
+      // proceedToCardPayment();
       console.log("Proceed to card payment");
       divPayment.classList.remove("hidden");
       billingInfo.classList.add("hidden");
-      priceTotal.innerHTML = selectedOptionsObj.sum;
       console.log("SUM HERE: ", selectedOptionsObj.sum);
     } else {
-      alert("Please, fill out the required fields");
-    }
-  }
-});
+      console.log("billingObj: ", billingObj);
+      if (
+        billingObj.fullName2 &&
+        billingObj.state2 &&
+        billingObj.zip2 &&
+        billingObj.address1
+        ) {
+          // proceedToCardPayment()
+          console.log("Proceed to card payment");
+          divPayment.classList.remove("hidden");
+          billingInfo.classList.add("hidden");
+        } else {
+          alert("Please, fill out the required fields");
+        }
+      }
+    });
+    
+    
+    confirmCard.addEventListener("click", (e) => {
+      e.preventDefault();
+      // CHECK EXPARATION DATE
+      let value = cardNumber.value;
+      let passedCvv = validateCvv();
+      let checkNumber = validateNumber(value);
+      // let cardNumber = validateNumber(value);
+      let validateDate = validateExpDate();
+      console.log("three passes", passedCvv, checkNumber, validateDate);
+      if (passedCvv && checkNumber && validateDate) {
+        console.log("ALL PASS - SUBMITTED");
+        orderConfirmation.classList.remove('hidden');
+        divPayment.classList.add('hidden')
+    
+      } else {
+        console.log("SOMTHEING IS MISSING!");
+        alert('Please check all fields are filled properly')
+      }
+    });
