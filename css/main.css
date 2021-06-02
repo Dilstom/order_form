@@ -31,3 +31,7 @@ body .jumbotron {
 .navbar-light .navbar-brand {
     margin-right: 115px;
 }
+
+#idCardType {
+    color: green; 
+}
