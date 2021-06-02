@@ -556,6 +556,7 @@
       </div>
     </div>
 
+    <!-- <div id="divPayment" class="container"> -->
     <div id="divPayment" class="container hidden">
       <h2>Payment</h2>
       <article class="card col-12 col-md-8">
@@ -574,7 +575,7 @@
           </div> -->
 
           <div class="form-group">
-            <label for="cardNumber">Card number</label>
+            <label for="cardNumber">Card number (<span id="idCardType"></span>)</label>
             <div class="input-group">
               <input
                 type="text"
@@ -658,6 +659,31 @@
         <br>
         <br>
         <h4>Thank you for order!</h4>
+        <br>
+        <h3>Order Summary</h3>
+        <div>
+          <p id="pizzaDough"></p>
+          <p id="pizzaSize"></p>
+          <p id="pizzaCheese"></p>
+          <p id="pizzaSauce"></p>
+          <p id="pizzaTopping"></p>
+          <b>Total: $<p id="pizzaPrice"></p></b>
+          <h3>Payment Type</h3>
+          <p id="paymentType"></p>
+        </div>
+        <div class="justifyContent">
+          <article class="card col-12 col-md-5">
+            <h3>Delivery Address</h3>
+            <p id="deliveryName"></p>
+            <p id="deliveryAddress1"></p>
+            <p id="deliveryAddress2"></p>
+            <p id="deliveryEmail"></p>
+            <p id="deliveryPhone"></p>
+            <p id="deliveryCity"></p>
+            <p id="deliveryZip"></p>
+          </article>
+          
+        </div>
       </div>
     </div>
 
@@ -679,7 +705,7 @@
       </div>
     </div>
 
-    <script src="js/index2.js"></script>
+    <script src="js/index.js"></script>
     <script
       type="text/javascript"
       src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"
